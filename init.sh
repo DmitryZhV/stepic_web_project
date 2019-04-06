@@ -7,6 +7,6 @@ mkdir /home/box/web/public/img
 mkdir /home/box/web/public/css
 mkdir /home/box/web/public/js
 mkdir /home/box/web/uploads
-sudo ln -s /home/box/web/etc/hello.py   /etc/gunicorn.d/hello.py
-sudo /etc/init.d/gunicorn -c hello.py hello:app start
+#sudo ln -s /home/box/web/etc/hello.py   /etc/gunicorn.d/hello.py
+sudo gunicorn -b 0.0.0.0:8080 hello:app 
 #sudo /etc/init.d/mysql start
