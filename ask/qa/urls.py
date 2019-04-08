@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from qa.views import test
 
 urlpatterns = [
 #    path('admin/', admin.site.urls),
@@ -23,5 +24,5 @@ urlpatterns = [
 #    path('ask/', ask),
 #    path('popular', popular),
 #    path('new', found),
-path('qestion/<int:id>/', views.test,name='question'),
+path('qestion/<int:id>/', test, name='test'),
 ]
