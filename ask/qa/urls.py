@@ -16,13 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from qa.views import test
+from qa.views import article
+from qa.views import popular, question, main
+
+ 
 
 urlpatterns = [
 #    path('admin/', admin.site.urls),
 #    path('login/', login_view),
 #    path('signup/', signup),
 #    path('ask/', ask),
-#    path('popular', popular),
+    path('popular/', popular),
 #    path('new', found),
-path('qestion/<int:id>/', test, name='test'),
+    path('question/<int:id>/', question, name='question'),
+    path('', main),
+  #  path('<int:id>/', article),
 ]

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    {% for q in question %}
+    {{q.title}}
+    <p><a href="{{paginator.baseurl}}{{q.id}}">Question {{q.id}}</a></p>
+    {% endfor %}
+   
+</body>
+</html>

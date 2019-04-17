@@ -24,8 +24,9 @@ urlpatterns = [
     path('login/', test),
     path('signup/', test),
     path('ask/', test),
-    path('popular/', test),
+    path('test/',include('qa.urls')),
+   # path('popular/', include('qa.urls')),
     path('new/', test, name='nonew'),
-    path('question/<int:pk>/', test),
-    path('', test),
+   # path('question/', include('qa.urls')),
+    path('', include('qa.urls')),
 ]
