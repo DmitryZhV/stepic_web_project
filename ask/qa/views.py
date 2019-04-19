@@ -2,9 +2,11 @@
 # Create your views here.
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.core.paginator import Paginator
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.decorators.http import require_GET
 from qa.models import Question, Answer
+from qa.forms import AskForm, AnswerForm
+from requests.api import request
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
@@ -17,17 +19,27 @@ def article(request):
     return render_to_response('index.html', {
 
         })
-@require_GET
+
 def question(request, id):
     question=get_object_or_404(Question, id=id)
     try:
         AsText=Answer.objects.filter(question_id=id)
     except Answer.DoesNotExist:
         AsText=None
-    return render(request, 'question.html', {
-        'question': question,
-        'astext' : AsText,
-    })
+    if request.method== "POST":
+        form=AnswerForm(request.POST)
+        if form.is_valid():
+            post=form.save()
+            id=post.id
+            return HttpResponseRedirect('../'+question.id)
+    else:
+        form=AnswerForm(initial={'question': question.id})
+        
+        return render(request, 'question.html', {
+            'question': question,
+            'astext' : AsText,
+            'form':form,
+        })
 
 def popular(request):
     try:
@@ -70,5 +82,15 @@ def main(request):
                   'page': page,
                   })
     
-    
+def ask(request):
+    if request.method == "POST":
+        form=AskForm(request.POST)
+        if form.is_valid():
+            post=form.save()
+            id=post.id
+            return HttpResponseRedirect('../question/'+str(id))
+    else:
+        form=AskForm()
+    return render(request,'ask.html',
+                  {'form':form, })  
     

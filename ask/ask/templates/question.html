@@ -1,5 +1,22 @@
-<h1>{{ question.title}}</h1>
-<p>{{ question.text}}</p>
-{% for text in astext %}
-	{{text}}
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>question!</title>
+</head>
+<body>
+    <h1>{{ question.title}}</h1>
+	<p>{{ question.text}}</p>
+		{% for text in astext %}
+			<p>{{text}}</p>
+		{% endfor %}
+    <form method="post" action="/question/{{question.id}}/">
+        <fieldset>
+        	{% csrf_token %}
+			{{ form.as_ul }}
+        </fieldset>
+        <button type="submit">Сохранить</button>
+    </form>
+</body>
+</html>
+
