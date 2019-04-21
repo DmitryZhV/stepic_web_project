@@ -20,6 +20,10 @@ class Question(models.Model):
     rating =  models.IntegerField(default=0) 
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     likes =  models.ManyToManyField(User, related_name='question_like_user')
+    
+    def get_url(self):
+        return "/question/{}/".format(self.id)
+
 
 class Answer(models.Model):
     text = models.TextField(default="")

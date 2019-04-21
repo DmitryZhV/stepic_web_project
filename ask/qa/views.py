@@ -21,23 +21,24 @@ def article(request):
         })
 
 def question(request, id):
-    question=get_object_or_404(Question, id=id)
+    #question=get_object_or_404(Question, id=id)
     try:
-        AsText=Answer.objects.filter(question_id=id)
-    except Answer.DoesNotExist:
-        AsText=None
+        question=Question.objects.get(id=id)
+        #print(question)
+        #print(question.id)
+    except Question.DoesNotExist:
+        raise Http404
     if request.method== "POST":
         form=AnswerForm(request.POST)
         if form.is_valid():
             post=form.save()
-            id=post.id
-            return HttpResponseRedirect('../'+question.id)
+            url = question.get_url()
+            return HttpResponseRedirect(url)
     else:
         form=AnswerForm(initial={'question': question.id})
         
         return render(request, 'question.html', {
             'question': question,
-            'astext' : AsText,
             'form':form,
         })
 

@@ -7,10 +7,10 @@
 <body>
     <h1>{{ question.title}}</h1>
 	<p>{{ question.text}}</p>
-		{% for text in astext %}
+		{% for text in question.answer_set.all %}
 			<p>{{text}}</p>
 		{% endfor %}
-    <form method="post" action="/question/{{question.id}}/">
+    <form method="post" action="{{ question.get_url }}">
         <fieldset>
         	{% csrf_token %}
 			{{ form.as_ul }}
